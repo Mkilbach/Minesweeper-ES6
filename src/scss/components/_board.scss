@@ -1,0 +1,18 @@
+.board {
+
+    &__row {
+        display: flex;
+    }
+
+    &__item {
+        width: 35px;
+        height: 35px;
+        border-style: outset;
+        border-width: 2px; 
+        background: #aaa;
+
+        &:active {
+            border-style: inset;
+        }
+    }
+}
