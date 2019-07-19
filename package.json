@@ -4,7 +4,7 @@
   "description": "",
   "private": true,
   "scripts": {
-    "watch": "webpack --watch",
+    "watch": "webpack --production --watch",
     "build": "webpack"
   },
   "author": "",
@@ -14,6 +14,7 @@
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-stage-2": "^7.0.0",
     "babel-loader": "^8.0.6",
+    "file-loader": "^4.1.0",
     "node-sass": "^4.12.0",
     "sass-loader": "^7.1.0",
     "webpack": "^4.36.1",
@@ -21,6 +22,12 @@
     "webpack-dev-server": "^3.7.2"
   },
   "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-decorators": "^7.4.4",
+    "@babel/plugin-proposal-export-namespace-from": "^7.5.2",
+    "@babel/plugin-proposal-function-sent": "^7.5.0",
+    "@babel/plugin-proposal-numeric-separator": "^7.2.0",
+    "@babel/plugin-proposal-throw-expressions": "^7.2.0",
     "babel-preset-es2015": "^6.24.1",
     "css-loader": "^3.1.0",
     "style-loader": "^0.23.1"

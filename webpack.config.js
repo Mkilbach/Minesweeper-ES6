@@ -6,6 +6,7 @@ module.exports = {
         filename: 'main.js',
         path: path.resolve(__dirname, 'dist')
     },
+    devtool: 'inline-source-map',
     module: {
         rules: [
             {
@@ -14,7 +15,19 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['@babel/preset-env']
+                        presets: [
+                            '@babel/preset-env',
+                            {
+                                plugins: [
+                                    ["@babel/plugin-proposal-decorators", { "legacy": true }],
+                                    "@babel/plugin-proposal-function-sent",
+                                    "@babel/plugin-proposal-export-namespace-from",
+                                    "@babel/plugin-proposal-numeric-separator",
+                                    "@babel/plugin-proposal-throw-expressions",
+                                    '@babel/plugin-proposal-class-properties'
+                                ]
+                            }
+                        ],
                     }
                 }
             },
