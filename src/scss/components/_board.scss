@@ -7,13 +7,20 @@
     &__item {
         width: 35px;
         height: 35px;
-        border-style: outset;
         border-width: 2px; 
-        background: #aaa;
         position: relative;
-
-        &:active {
-            border-style: inset;
+        background: #ccc;
+        border-style: inset;
+        
+        &.covered {
+            border-style: outset;
+            background: #aaa;
+            &:active {
+                border-style: inset;
+            }
+            &:after {
+                content: '';
+            }
         }
 
         &--bomb, &--flag{
@@ -29,8 +36,6 @@
         }
         
         &--1, &--2, &--3, &--4, &--5, &--6, &--7, &--8 {
-            background: #ccc;
-            border-style: inset;
 
             &:after {
                 font-size: 22px;
