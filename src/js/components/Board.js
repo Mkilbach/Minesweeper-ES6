@@ -41,7 +41,7 @@ export default class Board {
             let counter = 0;
             const adjacent = this.findAdjacentElements(el.dataset.x, el.dataset.y);
             adjacent.forEach(el => el.classList.contains('board__item--bomb') && counter++);
-            counter && el.classList.add(`board__item--${counter}`);
+            el.classList.add(counter ? `board__item--${counter}` : 'board__item--empty');
         })
     }
 
@@ -61,7 +61,6 @@ export default class Board {
     }
 
     addClickHandleToItems = () => {
-        console.log(this.boardItems);
         this.boardItems.forEach(el => el.addEventListener('click', e => {
             this.handleItemClick(e);
             
@@ -69,6 +68,15 @@ export default class Board {
     }
 
     handleItemClick = e => {
-        e.currentTarget.classList.remove('covered');
+        const target = e.currentTarget;
+        target.classList.remove('covered');
+
+        if(target.classList.contains('board__item--bomb')) {
+            console.log('you lose');
+            
+        } else if(!target.hasAttribute('[class*=board__item--]')) {
+            // console.log('empty');
+            
+        }
     }
 }
