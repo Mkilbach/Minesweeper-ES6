@@ -1,6 +1,7 @@
 export default class Timer {
     constructor(selector, initialValue = 0) {
         this.element = document.querySelector(selector);
+        this.initialValue = initialValue;
         this.value = initialValue;
         this.countdown;
 
@@ -27,5 +28,11 @@ export default class Timer {
 
     stop = () => {
         clearInterval(this.countdown)
+    }
+
+    reset = () => {
+        this.value = this.initialValue;
+        this.stop();
+        this.init();
     }
 }

@@ -65,15 +65,22 @@ export default class Board {
     }
 
     addClickHandleToItems = () => {
-        this.element.addEventListener('contextmenu', e => {
-            e.preventDefault();
-            const target = e.target;
-            if (target.classList.contains('covered')) {
-                this.handleFlagToggle(target.classList.contains('flag') ? --this.flagCount : ++this.flagCount);
-                target.classList.toggle('flag');
-            }
-        });
+        this.element.addEventListener('contextmenu', this.toggleFlag);
         this.element.addEventListener('click', this.handleItemClick);
+    }
+
+    removeClickHandleToItems = () => {
+        this.element.removeEventListener('contextmenu', this.toggleFlag);
+        this.element.removeEventListener('click', this.handleItemClick);
+    }
+
+    toggleFlag = e => {
+        e.preventDefault();
+        const target = e.target;
+        if (target.classList.contains('covered')) {
+            this.handleFlagToggle(target.classList.contains('flag') ? --this.flagCount : ++this.flagCount);
+            target.classList.toggle('flag');
+        }
     }
 
     handleItemClick = e => {
@@ -115,13 +122,21 @@ export default class Board {
     checkWinConditions = () => {
         let win = true;
         this.board.forEach(row => row.forEach(el => { if (((!el.classList.contains('board__item--bomb')) && el.classList.contains('covered')) || (el.classList.contains('board__item--bomb')) && !el.classList.contains('covered')) win = false }));
-        if (win) {
-            this.handleWin();
-        }
+        win && this.gameWon();
+    }
+
+    gameWon = () => {
+        this.removeClickHandleToItems();
+        this.handleWin();
     }
 
     gameLose = () => {
         this.uncoverAll();
+        this.removeClickHandleToItems();
         this.handleLose();
+    }
+
+    restart = () => {
+        console.log('restart');
     }
 }
