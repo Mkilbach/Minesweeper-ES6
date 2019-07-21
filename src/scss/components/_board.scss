@@ -30,6 +30,10 @@
             &:active {
                 border-style: outset;
             }
+
+            &--wrong {
+                background: purple;
+            }
         }
 
         &--bomb, &--flag{

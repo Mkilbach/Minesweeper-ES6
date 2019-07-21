@@ -4,5 +4,18 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px;
+    padding: 10px;
+
+    &__counter {
+        width: 40px;
+        height: 20px;
+        padding: 5px;
+        background: #111;
+        color: red;
+        font-family: monospace;
+        line-height: 20px;
+        font-size: 20px;
+        text-align: center;
+        border-style: inset;
+    }
 }
