@@ -1,5 +1,5 @@
 export default class Timer {
-    constructor(selector, initialValue) {
+    constructor(selector, initialValue = 0) {
         this.element = document.querySelector(selector);
         this.value = initialValue;
         this.init();
@@ -12,11 +12,8 @@ export default class Timer {
 
     setCountdown = interval => {
         const countdown = setInterval(() => {
-            this.element.innerHTML = --this.value;
-            if(this.value <= 0) {
-                clearInterval(countdown);
-                console.log('you lose');
-            }
+            this.element.innerHTML = ++this.value;
+            if(this.value >= 999)  clearInterval(countdown);
         }, interval);
     }
 }

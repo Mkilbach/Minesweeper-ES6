@@ -8,10 +8,15 @@ export default class Board {
         this.bombClass = 'board__item--bomb';
         this.board = [];
 
+        // this.preventContextMenu();
         this.createBoard();
         this.getBoardItems();
         this.placeNumbers(this.generateBombs());
         this.addClickHandleToItems();
+    }
+
+    preventContextMenu = () => {
+        window.addEventListener('contextmenu', e => e.preventDefault());
     }
 
     createBoard = () => {
@@ -61,22 +66,45 @@ export default class Board {
     }
 
     addClickHandleToItems = () => {
-        this.boardItems.forEach(el => el.addEventListener('click', e => {
+        this.element.addEventListener('contextmenu', e => {
+            e.preventDefault();
+            const target = e.target;
+            if(target.classList.contains('covered')) {
+                target.classList.toggle('flag');
+            }
+        });
+        this.element.addEventListener('click', e => {
             this.handleItemClick(e);
-            
-        }))
+            this.checkWinConditions();
+        })
     }
 
     handleItemClick = e => {
-        const target = e.currentTarget;
-        target.classList.remove('covered');
-
-        if(target.classList.contains('board__item--bomb')) {
-            console.log('you lose');
+        e.preventDefault();
+        console.log(e);
+        if(e.which == 3) {
+            console.log('right click');
             
-        } else if(!target.hasAttribute('[class*=board__item--]')) {
-            // console.log('empty');
-            
+        } else {
+            this.uncover(e.target);
         }
+    }
+
+    uncover = target => {
+        target.classList.remove('covered');
+        if (target.classList.contains('board__item--bomb')) {
+            console.log('you lose');
+        } else if (target.classList.contains('board__item--empty')) {
+            this.findAdjacentElements(target.dataset.x, target.dataset.y).forEach(el => {
+                if (el.classList.contains('covered') && el.classList.contains('board__item--empty')) this.uncover(el);
+                el.classList.remove('covered');
+            });
+        }
+    }
+
+    checkWinConditions = () => {
+        let win = true;
+        this.board.forEach(row => row.forEach(el => { if ((!el.classList.contains('board__item--bomb')) && el.classList.contains('covered')) win = false }));
+        console.log(win);
     }
 }

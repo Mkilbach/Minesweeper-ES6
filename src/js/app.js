@@ -3,5 +3,5 @@ import Board from './components/Board'
 
 import '../scss/main.scss';
 
-new Timer('#timer', 10);
-new Board('#board', 8, 8, 10);
+new Timer('#timer');
+new Board('#board', 4, 4, 1);
